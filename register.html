@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitTech Register</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="theme-default auth-page">
+  <main class="auth-wrapper">
+    <section class="auth-card">
+      <div class="auth-hero">
+        <a href="index.html" class="logo auth-logo">
+          <span class="logo-mark">FT</span>
+          <span class="logo-text">FitTech</span>
+        </a>
+        <h1>Launch your fitness journey</h1>
+        <p class="muted">
+          Create your FitTech account to unlock personalized workouts, nutrition plans and progress tracking.
+        </p>
+      </div>
+      <div class="auth-form-wrapper">
+        <form id="registerForm" class="form-grid">
+          <div class="form-field full-width">
+            <label for="regFullName">Full Name</label>
+            <input type="text" id="regFullName" name="full_name" required />
+          </div>
+          <div class="form-field">
+            <label for="regEmail">Email</label>
+            <input type="email" id="regEmail" name="email" required />
+          </div>
+          <div class="form-field">
+            <label for="regPassword">Password</label>
+            <input type="password" id="regPassword" name="password" required minlength="6" />
+          </div>
+          <div class="form-field">
+            <label for="regAge">Age</label>
+            <input type="number" id="regAge" name="age" min="10" max="100" />
+          </div>
+          <div class="form-field">
+            <label for="regGender">Gender</label>
+            <select id="regGender" name="gender">
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="regHeight">Height (cm)</label>
+            <input type="number" id="regHeight" name="height" min="100" max="250" />
+          </div>
+          <div class="form-field">
+            <label for="regWeight">Weight (kg)</label>
+            <input type="number" id="regWeight" name="weight" min="30" max="250" step="0.1" />
+          </div>
+          <div class="form-field">
+            <label for="regGoal">Fitness Goal</label>
+            <select id="regGoal" name="fitness_goal">
+              <option value="muscle_gain">Muscle Gain</option>
+              <option value="fat_loss">Fat Loss</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="endurance">Endurance</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="regActivity">Activity Level</label>
+            <select id="regActivity" name="activity_level">
+              <option value="sedentary">Sedentary</option>
+              <option value="light">Light</option>
+              <option value="moderate">Moderate</option>
+              <option value="active">Active</option>
+              <option value="very_active">Very Active</option>
+            </select>
+          </div>
+          <div id="registerError" class="form-error hidden"></div>
+          <button type="submit" class="btn btn-primary full-width">
+            LAUNCH MY FITNESS JOURNEY
+          </button>
+        </form>
+        <p class="auth-switch muted small">
+          Already have an account?
+          <a href="login.html">Log in</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitTech Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="theme-default">
+  <!-- Global App Wrapper -->
+  <div class="app">
+    <!-- Top Navigation -->
+    <header class="top-nav">
+      <div class="nav-left">
+        <a href="index.html" class="logo">
+          <span class="logo-mark">FT</span>
+          <span class="logo-text">FitTech</span>
+        </a>
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link active">Dashboard</a>
+          <a href="training.html" class="nav-link">Training</a>
+          <a href="store.html" class="nav-link">Store</a>
+        </nav>
+      </div>
+      <div class="nav-right">
+        <button id="themeToggle" class="icon-button" aria-label="Toggle theme">
+          <span class="icon-moon"></span>
+        </button>
+        <div class="cart-indicator">
+          <a href="store.html" class="icon-button" aria-label="Open cart">
+            <span class="icon-cart"></span>
+            <span id="cartCount" class="badge">0</span>
+          </a>
+        </div>
+        <div class="user-menu">
+          <button id="userMenuToggle" class="user-avatar-button">
+            <div class="avatar-circle" id="avatarInitials">FT</div>
+            <span id="navUsername" class="username-label">Guest</span>
+            <span class="icon-chevron-down"></span>
+          </button>
+          <div id="userDropdown" class="user-dropdown hidden">
+            <button id="openProfileModal" class="dropdown-item">Profile Settings</button>
+            <button id="logoutBtn" class="dropdown-item dropdown-danger">Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page page-dashboard">
+      <section class="page-header">
+        <div>
+          <h1 class="page-title">Welcome back, <span id="heroUsername">Athlete</span> 🏋️‍♀️</h1>
+          <p class="page-subtitle">Track your workouts, nutrition and progress — all in one place.</p>
+        </div>
+        <div class="page-header-actions">
+          <button id="logWorkoutBtn" class="btn btn-primary">LOG NEW WORKOUT</button>
+        </div>
+      </section>
+
+      <!-- Stats Grid -->
+      <section class="cards-grid">
+        <article class="card stat-card">
+          <div class="card-header">
+            <h2>Total Workouts</h2>
+          </div>
+          <div class="card-body">
+            <div id="totalWorkouts" class="stat-value">0</div>
+            <p class="stat-label">Workouts completed</p>
+          </div>
+        </article>
+
+        <article class="card stat-card">
+          <div class="card-header">
+            <h2>Streak</h2>
+          </div>
+          <div class="card-body">
+            <div id="streakDays" class="stat-value">0</div>
+            <p class="stat-label">Day streak</p>
+          </div>
+        </article>
+
+        <article class="card stat-card">
+          <div class="card-header">
+            <h2>Calories Burned</h2>
+          </div>
+          <div class="card-body">
+            <div id="caloriesBurned" class="stat-value">0</div>
+            <p class="stat-label">kcal total</p>
+          </div>
+        </article>
+
+        <article class="card stat-card">
+          <div class="card-header">
+            <h2>Achievements</h2>
+          </div>
+          <div class="card-body">
+            <div id="achievements" class="stat-value">0</div>
+            <p class="stat-label">Unlocked badges</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- Character + Metrics -->
+      <section class="layout-two-column">
+        <!-- Character Progress -->
+        <article class="card character-card">
+          <div class="card-header">
+            <div>
+              <h2>Your FitTech Avatar</h2>
+              <p class="muted">Level <span id="avatarLevel">1</span> • <span id="avatarTitle">Rookie</span></p>
+            </div>
+            <div class="character-controls">
+              <button id="prevCharacter" class="icon-button subtle">
+                <span class="icon-chevron-left"></span>
+              </button>
+              <button id="nextCharacter" class="icon-button subtle">
+                <span class="icon-chevron-right"></span>
+              </button>
+            </div>
+          </div>
+          <div class="card-body character-body">
+            <div id="characterCanvas" class="character-visual">
+              <!-- character.js will render SVG / shapes here -->
+              <div class="character-placeholder">
+                <div class="character-figure"></div>
+                <p class="muted small">Keep training to evolve your avatar</p>
+              </div>
+            </div>
+            <div class="character-progress">
+              <div class="progress-row">
+                <span>Workouts to next level</span>
+                <span id="workoutsToNextLevel">5</span>
+              </div>
+              <div class="progress-bar">
+                <div id="workoutProgressBar" class="progress-fill" style="width: 0%"></div>
+              </div>
+              <div class="progress-row">
+                <span>Calories to next level</span>
+                <span id="caloriesToNextLevel">1000 kcal</span>
+              </div>
+              <div class="progress-bar">
+                <div id="calorieProgressBar" class="progress-fill progress-secondary" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Health Metrics -->
+        <article class="card metrics-card">
+          <div class="card-header">
+            <h2>Health Metrics</h2>
+          </div>
+          <div class="card-body metrics-grid">
+            <div class="metric-item">
+              <h3>BMI</h3>
+              <div id="bmiValue" class="metric-value">--</div>
+              <p id="bmiCategory" class="metric-caption muted">Enter your data to calculate</p>
+            </div>
+            <div class="metric-item">
+              <h3>BMR</h3>
+              <div id="bmrValue" class="metric-value">-- kcal</div>
+              <p class="metric-caption muted">Estimated daily calories at rest</p>
+            </div>
+            <div class="metric-item">
+              <h3>Goal</h3>
+              <div id="goalLabel" class="metric-value small">Not set</div>
+              <p class="metric-caption muted">Update in profile settings</p>
+            </div>
+            <div class="metric-item">
+              <h3>Activity Level</h3>
+              <div id="activityLabel" class="metric-value small">Not set</div>
+              <p class="metric-caption muted">Used for nutrition planning</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Recent Activity -->
+      <section class="layout-two-column">
+        <article class="card">
+          <div class="card-header">
+            <h2>Recent Workouts</h2>
+          </div>
+          <div class="card-body">
+            <ul id="recentWorkoutsList" class="list list-striped empty-state">
+              <li>No workouts logged yet. Hit “LOG NEW WORKOUT” to start your journey.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h2>Recent Nutrition Logs</h2>
+          </div>
+          <div class="card-body">
+            <ul id="recentNutritionList" class="list list-striped empty-state">
+              <li>No nutrition logs yet. Head to the Training page to log your meals.</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="profileModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <header class="modal-header">
+        <h2>Profile Settings</h2>
+        <button class="icon-button" id="closeProfileModal">
+          <span class="icon-close"></span>
+        </button>
+      </header>
+      <div class="modal-body">
+        <form id="profileForm" class="form-grid">
+          <div class="form-field">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="full_name" placeholder="Your name" />
+          </div>
+          <div class="form-field">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="10" max="100" />
+          </div>
+          <div class="form-field">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender">
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="height">Height (cm)</label>
+            <input type="number" id="height" name="height" min="100" max="250" />
+          </div>
+          <div class="form-field">
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" name="weight" min="30" max="250" step="0.1" />
+          </div>
+          <div class="form-field">
+            <label for="fitnessGoal">Fitness Goal</label>
+            <select id="fitnessGoal" name="fitness_goal">
+              <option value="">Select</option>
+              <option value="muscle_gain">Muscle Gain</option>
+              <option value="fat_loss">Fat Loss</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="endurance">Endurance</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="activityLevel">Activity Level</label>
+            <select id="activityLevel" name="activity_level">
+              <option value="">Select</option>
+              <option value="sedentary">Sedentary</option>
+              <option value="light">Light</option>
+              <option value="moderate">Moderate</option>
+              <option value="active">Active</option>
+              <option value="very_active">Very Active</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn btn-ghost" id="cancelProfileChanges">Cancel</button>
+        <button class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Log Workout Modal -->
+  <div id="logWorkoutModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <header class="modal-header">
+        <h2>Log Workout</h2>
+        <button class="icon-button" id="closeLogWorkoutModal">
+          <span class="icon-close"></span>
+        </button>
+      </header>
+      <div class="modal-body">
+        <form id="logWorkoutForm" class="form-grid">
+          <div class="form-field">
+            <label for="workoutType">Workout Type</label>
+            <select id="workoutType" name="workout_type" required>
+              <option value="strength">Strength</option>
+              <option value="cardio">Cardio</option>
+              <option value="hiit">HIIT</option>
+              <option value="yoga">Yoga</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="durationMinutes">Duration (minutes)</label>
+            <input type="number" id="durationMinutes" name="duration_minutes" min="5" max="300" required />
+          </div>
+          <div class="form-field">
+            <label for="intensity">Intensity</label>
+            <select id="intensity" name="intensity" required>
+              <option value="light">Light</option>
+              <option value="moderate">Moderate</option>
+              <option value="hard">Hard</option>
+              <option value="extreme">Extreme</option>
+            </select>
+          </div>
+          <div class="form-field full-width">
+            <label for="workoutNotes">Notes</label>
+            <textarea id="workoutNotes" name="notes" rows="3" placeholder="Optional notes"></textarea>
+          </div>
+        </form>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn btn-ghost" id="cancelLogWorkout">Cancel</button>
+        <button class="btn btn-primary" id="submitLogWorkout">Save Workout</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/character.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
+
+

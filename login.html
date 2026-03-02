@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitTech Login</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="theme-default auth-page">
+  <main class="auth-wrapper">
+    <section class="auth-card">
+      <div class="auth-hero">
+        <a href="index.html" class="logo auth-logo">
+          <span class="logo-mark">FT</span>
+          <span class="logo-text">FitTech</span>
+        </a>
+        <h1>Welcome back</h1>
+        <p class="muted">
+          Log in to continue your fitness journey, track your progress and manage your plans.
+        </p>
+      </div>
+      <div class="auth-form-wrapper">
+        <form id="loginForm" class="form-grid">
+          <div class="form-field full-width">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" name="email" required placeholder="you@example.com" />
+          </div>
+          <div class="form-field full-width">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" name="password" required minlength="6" />
+          </div>
+          <div id="loginError" class="form-error hidden"></div>
+          <button type="submit" class="btn btn-primary full-width">LOGIN</button>
+        </form>
+        <p class="auth-switch muted small">
+          Don't have an account?
+          <a href="register.html">Create your account</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
+
+

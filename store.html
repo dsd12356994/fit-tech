@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitTech Store</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="theme-default">
+  <div class="app">
+    <header class="top-nav">
+      <div class="nav-left">
+        <a href="index.html" class="logo">
+          <span class="logo-mark">FT</span>
+          <span class="logo-text">FitTech</span>
+        </a>
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link">Dashboard</a>
+          <a href="training.html" class="nav-link">Training</a>
+          <a href="store.html" class="nav-link active">Store</a>
+        </nav>
+      </div>
+      <div class="nav-right">
+        <button id="themeToggle" class="icon-button" aria-label="Toggle theme">
+          <span class="icon-moon"></span>
+        </button>
+        <div class="cart-indicator">
+          <div class="icon-button" aria-label="Cart">
+            <span class="icon-cart"></span>
+            <span id="cartCount" class="badge">0</span>
+          </div>
+        </div>
+        <div class="user-menu">
+          <button id="userMenuToggle" class="user-avatar-button">
+            <div class="avatar-circle" id="avatarInitials">FT</div>
+            <span id="navUsername" class="username-label">Guest</span>
+            <span class="icon-chevron-down"></span>
+          </button>
+          <div id="userDropdown" class="user-dropdown hidden">
+            <button id="openProfileModal" class="dropdown-item">Profile Settings</button>
+            <button id="logoutBtn" class="dropdown-item dropdown-danger">Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page page-store">
+      <section class="page-header">
+        <div>
+          <h1 class="page-title">FitTech Store</h1>
+          <p class="page-subtitle">Curated supplements, equipment and apparel to power your journey.</p>
+        </div>
+      </section>
+
+      <section class="layout-two-column layout-stacked-mobile store-layout">
+        <!-- Filters + Products -->
+        <div class="store-main">
+          <div class="store-toolbar">
+            <div class="pill-tabs" id="productCategoryTabs">
+              <button data-category="" class="pill-tab active">All</button>
+              <button data-category="supplements" class="pill-tab">Supplements</button>
+              <button data-category="equipment" class="pill-tab">Equipment</button>
+              <button data-category="apparel" class="pill-tab">Apparel</button>
+              <button data-category="accessories" class="pill-tab">Accessories</button>
+            </div>
+            <div class="search-input">
+              <span class="icon-search"></span>
+              <input id="productSearchInput" type="text" placeholder="Search products..." />
+            </div>
+          </div>
+
+          <div id="productsGrid" class="products-grid">
+            <!-- store.js will render products; show simple placeholders before data loads -->
+            <div class="empty-state full-width">
+              Loading products...
+            </div>
+          </div>
+        </div>
+
+        <!-- Cart Sidebar -->
+        <aside class="cart-sidebar card">
+          <div class="card-header">
+            <h2>Your Cart</h2>
+          </div>
+          <div class="card-body cart-body">
+            <ul id="cartItemsList" class="list list-striped empty-state">
+              <li>Your cart is empty. Add some gear to power up your training.</li>
+            </ul>
+          </div>
+          <footer class="card-footer cart-footer">
+            <div class="totals-row">
+              <span>Subtotal</span>
+              <span id="cartSubtotal" class="metric-value small">$0.00</span>
+            </div>
+            <button id="checkoutBtn" class="btn btn-primary full-width">PROCEED TO CHECKOUT</button>
+          </footer>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <header class="modal-header">
+        <h2>Order Confirmation</h2>
+        <button class="icon-button" id="closeCheckoutModal">
+          <span class="icon-close"></span>
+        </button>
+      </header>
+      <div class="modal-body">
+        <p class="muted">
+          Review your order below. Click "CONFIRM ORDER" to complete your purchase.
+        </p>
+        <div id="checkoutItemsList" class="checkout-items-list" style="margin: 16px 0; padding: 12px; background: rgba(148, 163, 184, 0.1); border-radius: 8px;">
+          <!-- Items will be rendered here -->
+        </div>
+        <div class="summary-row">
+          <span>Total Items</span>
+          <span id="checkoutItemCount">0</span>
+        </div>
+        <div class="summary-row" style="font-size: 18px; font-weight: 600; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(148, 163, 184, 0.3);">
+          <span>Total Amount</span>
+          <span id="checkoutTotal" style="color: var(--accent-secondary);">$0.00</span>
+        </div>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn btn-ghost" id="cancelCheckout">Cancel</button>
+        <button class="btn btn-primary" id="confirmCheckout">CONFIRM ORDER</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Shared Modals (Profile) -->
+  <div id="profileModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <header class="modal-header">
+        <h2>Profile Settings</h2>
+        <button class="icon-button" id="closeProfileModal">
+          <span class="icon-close"></span>
+        </button>
+      </header>
+      <div class="modal-body">
+        <form id="profileForm" class="form-grid">
+          <div class="form-field">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="full_name" placeholder="Your name" />
+          </div>
+          <div class="form-field">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="10" max="100" />
+          </div>
+          <div class="form-field">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender">
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="height">Height (cm)</label>
+            <input type="number" id="height" name="height" min="100" max="250" />
+          </div>
+          <div class="form-field">
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" name="weight" min="30" max="250" step="0.1" />
+          </div>
+          <div class="form-field">
+            <label for="fitnessGoal">Fitness Goal</label>
+            <select id="fitnessGoal" name="fitness_goal">
+              <option value="">Select</option>
+              <option value="muscle_gain">Muscle Gain</option>
+              <option value="fat_loss">Fat Loss</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="endurance">Endurance</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="activityLevel">Activity Level</label>
+            <select id="activityLevel" name="activity_level">
+              <option value="">Select</option>
+              <option value="sedentary">Sedentary</option>
+              <option value="light">Light</option>
+              <option value="moderate">Moderate</option>
+              <option value="active">Active</option>
+              <option value="very_active">Very Active</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn btn-ghost" id="cancelProfileChanges">Cancel</button>
+        <button class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/store.js"></script>
+</body>
+</html>
+
+

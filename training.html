@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitTech Training Center</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="theme-default">
+  <div class="app">
+    <header class="top-nav">
+      <div class="nav-left">
+        <a href="index.html" class="logo">
+          <span class="logo-mark">FT</span>
+          <span class="logo-text">FitTech</span>
+        </a>
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link">Dashboard</a>
+          <a href="training.html" class="nav-link active">Training</a>
+          <a href="store.html" class="nav-link">Store</a>
+        </nav>
+      </div>
+      <div class="nav-right">
+        <button id="themeToggle" class="icon-button" aria-label="Toggle theme">
+          <span class="icon-moon"></span>
+        </button>
+        <div class="cart-indicator">
+          <a href="store.html" class="icon-button" aria-label="Open cart">
+            <span class="icon-cart"></span>
+            <span id="cartCount" class="badge">0</span>
+          </a>
+        </div>
+        <div class="user-menu">
+          <button id="userMenuToggle" class="user-avatar-button">
+            <div class="avatar-circle" id="avatarInitials">FT</div>
+            <span id="navUsername" class="username-label">Guest</span>
+            <span class="icon-chevron-down"></span>
+          </button>
+          <div id="userDropdown" class="user-dropdown hidden">
+            <button id="openProfileModal" class="dropdown-item">Profile Settings</button>
+            <button id="logoutBtn" class="dropdown-item dropdown-danger">Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page page-training">
+      <section class="page-header">
+        <div>
+          <h1 class="page-title">Training & Nutrition</h1>
+          <p class="page-subtitle">Generate personalized plans, log workouts and track your meals.</p>
+        </div>
+        <div class="page-header-actions">
+          <button id="generatePlanBtn" class="btn btn-primary">GENERATE PLAN</button>
+        </div>
+      </section>
+
+      <section class="layout-two-column layout-stacked-mobile">
+        <!-- Nutrition Plan -->
+        <article class="card">
+          <div class="card-header">
+            <h2>Daily Nutrition Plan</h2>
+          </div>
+          <div class="card-body nutrition-plan">
+            <div class="plan-summary">
+              <div>
+                <h3>Calories</h3>
+                <p id="planCalories" class="metric-value small">-- kcal</p>
+              </div>
+              <div>
+                <h3>Protein</h3>
+                <p id="planProtein" class="metric-value small">-- g</p>
+              </div>
+              <div>
+                <h3>Carbs</h3>
+                <p id="planCarbs" class="metric-value small">-- g</p>
+              </div>
+              <div>
+                <h3>Fats</h3>
+                <p id="planFats" class="metric-value small">-- g</p>
+              </div>
+            </div>
+            <div class="plan-meals">
+              <h3>Suggested Meals</h3>
+              <ul id="planMealsList" class="list list-compact empty-state">
+                <li>Click “GENERATE PLAN” to get a personalized nutrition suggestion.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- Quick Workout Log -->
+        <article class="card">
+          <div class="card-header">
+            <h2>Quick Workout Log</h2>
+          </div>
+          <div class="card-body">
+            <form id="quickWorkoutForm" class="form-grid">
+              <div class="form-field">
+                <label for="qwType">Workout Type</label>
+                <select id="qwType" name="workout_type">
+                  <option value="strength">Strength</option>
+                  <option value="cardio">Cardio</option>
+                  <option value="hiit">HIIT</option>
+                  <option value="yoga">Yoga</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="qwDuration">Duration (min)</label>
+                <input type="number" id="qwDuration" name="duration_minutes" min="5" max="300" />
+              </div>
+              <div class="form-field">
+                <label for="qwIntensity">Intensity</label>
+                <select id="qwIntensity" name="intensity">
+                  <option value="light">Light</option>
+                  <option value="moderate">Moderate</option>
+                  <option value="hard">Hard</option>
+                  <option value="extreme">Extreme</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="qwCalories">Estimated Calories</label>
+                <input type="number" id="qwCalories" name="calories_burned" readonly placeholder="Auto-calculated" />
+                <small class="muted small">
+                  Calculated using MET × weight × hours (approximation). Weight from profile.
+                </small>
+              </div>
+              <div class="form-field full-width">
+                <label for="qwNotes">Notes</label>
+                <textarea id="qwNotes" name="notes" rows="2" placeholder="Optional notes"></textarea>
+              </div>
+            </form>
+          </div>
+          <footer class="card-footer">
+            <button id="logWorkoutTrainingBtn" class="btn btn-primary">LOG WORKOUT</button>
+          </footer>
+        </article>
+      </section>
+
+      <!-- Food Search & Logs -->
+      <section class="layout-two-column layout-stacked-mobile">
+        <!-- Food Search -->
+        <article class="card">
+          <div class="card-header card-header-row">
+            <div>
+              <h2>Food Search</h2>
+              <p class="muted small">Search foods and add them to today’s log.</p>
+            </div>
+            <div class="pill-tabs" id="foodFilterTabs">
+              <button data-type="all" class="pill-tab active">All</button>
+              <button data-type="breakfast" class="pill-tab">Breakfast</button>
+              <button data-type="lunch" class="pill-tab">Lunch</button>
+              <button data-type="dinner" class="pill-tab">Dinner</button>
+              <button data-type="snack" class="pill-tab">Snack</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="search-input">
+              <span class="icon-search"></span>
+              <input
+                id="foodSearchInput"
+                type="text"
+                placeholder="Search foods (e.g. chicken breast, oatmeal, apple)..."
+              />
+            </div>
+            <ul id="foodResultsList" class="list list-clickable empty-state">
+              <li>Start typing to search foods. In后端实现前端将使用本地示例数据。</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Today Nutrition Log -->
+        <article class="card">
+          <div class="card-header">
+            <h2>Today’s Nutrition Log</h2>
+          </div>
+          <div class="card-body">
+            <ul id="todayNutritionList" class="list list-striped empty-state">
+              <li>No foods logged yet. Add from the search on the left.</li>
+            </ul>
+          </div>
+          <footer class="card-footer">
+            <div class="totals-row">
+              <span>Total:</span>
+              <span id="todayTotals" class="muted small">0 kcal • 0g P • 0g C • 0g F</span>
+            </div>
+          </footer>
+        </article>
+      </section>
+
+      <!-- Training Videos -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Training Resources</h2>
+        </div>
+        <div class="card-body training-resources">
+          <div class="resources-grid">
+            <div class="resource-card">
+              <div class="resource-tag">Strength</div>
+              <h3>Full-Body Dumbbell Routine</h3>
+              <p class="muted small">45 min • Intermediate</p>
+              <button class="btn btn-ghost small" data-video-type="strength">ADD VIDEO LINK</button>
+            </div>
+            <div class="resource-card">
+              <div class="resource-tag">Cardio</div>
+              <h3>Low-Impact Cardio Session</h3>
+              <p class="muted small">30 min • Beginner</p>
+              <button class="btn btn-ghost small" data-video-type="cardio">ADD VIDEO LINK</button>
+            </div>
+            <div class="resource-card">
+              <div class="resource-tag">Mobility</div>
+              <h3>Post-Workout Stretching</h3>
+              <p class="muted small">15 min • All levels</p>
+              <button class="btn btn-ghost small" data-video-type="mobility">ADD VIDEO LINK</button>
+            </div>
+          </div>
+          <div id="videoUrlInputRow" class="video-url-input hidden">
+            <label for="videoUrlInput">Paste video URL:</label>
+            <input type="url" id="videoUrlInput" placeholder="https://..." />
+            <button id="saveVideoUrlBtn" class="btn btn-primary small">SAVE</button>
+          </div>
+          <div id="savedVideosList" class="saved-videos muted small">
+            <!-- training.js will render saved video links here -->
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Shared Modals (Profile) -->
+  <div id="profileModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <header class="modal-header">
+        <h2>Profile Settings</h2>
+        <button class="icon-button" id="closeProfileModal">
+          <span class="icon-close"></span>
+        </button>
+      </header>
+      <div class="modal-body">
+        <form id="profileForm" class="form-grid">
+          <div class="form-field">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="full_name" placeholder="Your name" />
+          </div>
+          <div class="form-field">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="10" max="100" />
+          </div>
+          <div class="form-field">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender">
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="height">Height (cm)</label>
+            <input type="number" id="height" name="height" min="100" max="250" />
+          </div>
+          <div class="form-field">
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" name="weight" min="30" max="250" step="0.1" />
+          </div>
+          <div class="form-field">
+            <label for="fitnessGoal">Fitness Goal</label>
+            <select id="fitnessGoal" name="fitness_goal">
+              <option value="">Select</option>
+              <option value="muscle_gain">Muscle Gain</option>
+              <option value="fat_loss">Fat Loss</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="endurance">Endurance</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="activityLevel">Activity Level</label>
+            <select id="activityLevel" name="activity_level">
+              <option value="">Select</option>
+              <option value="sedentary">Sedentary</option>
+              <option value="light">Light</option>
+              <option value="moderate">Moderate</option>
+              <option value="active">Active</option>
+              <option value="very_active">Very Active</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn btn-ghost" id="cancelProfileChanges">Cancel</button>
+        <button class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/training.js"></script>
+</body>
+</html>
+
+

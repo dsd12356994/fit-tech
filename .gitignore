@@ -1,0 +1,29 @@
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Node (if you ever add tooling)
+node_modules/
+dist/
+build/
+
+# PHP / local server artifacts
+vendor/
+
+# Local env / secrets
+.env
+.env.*
+
+# Local-only debug / test pages (avoid leaking config)
+test_config.php
+
+# R
+.Rhistory
+
